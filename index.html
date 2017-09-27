@@ -10,15 +10,16 @@
 
 	</head>
 	<body>
-		<img src="favicon.png" width="30px" height="30px">
+		<img src="favicon.png" width="40px" height="40px">
 
 		<h3 id="storeName">No store to display now!</h3>
-		<button class="btn btn-primary" id="search">Get Blockchain Data</button>
+		<!-- <button class="btn btn-primary" id="search">Get Blockchain Data</button> -->
 
 		<hr>
 
 		<p><strong>Overall Score: </strong><span id="storeScore">0</span>/5</p>
-		<section>
+
+		<section id="reviews">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -35,9 +36,31 @@
 						<td>Yummy!</td>
 						<td>4.8</td>
 					</tr>
-				</tbody>
+				</tbody>	
 			</table>
 		</section>
+
+		<p id="noReview">-- No Review --</p>
+
+		<hr>
+
+		<form id="newReview">
+			<button class="btn btn-primary" type="submit">Submit</button>
+			<label>Your Review</label>
+			<br><br>
+			<div class="score">
+				<label>Score:</label>
+				<select>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+			</div>
+			<br>
+			<textarea placeholder="write something..."></textarea>
+		</form>
 	</body>
 </html>
 

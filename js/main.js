@@ -1,6 +1,4 @@
-window.onload = function(){ 
-    document.getElementById("search").addEventListener("click", search);
-}
+window.addEventListener('load', search);
 
 var storeName;
 
@@ -68,6 +66,11 @@ function display(res){
 	placeId = JSON.parse(res).results[0].place_id;
 	console.log(placeId);
 	document.getElementById("storeName").innerHTML = storeName;
+	// get blockchain data
+
+	document.getElementById("noReview").style.display = "none";
+	document.getElementById("reviews").style.display = "block";
+	document.getElementById("newReview").style.display = "block";
 }
 
 function clearDisplay(){
