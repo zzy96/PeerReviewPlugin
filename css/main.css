@@ -8,7 +8,7 @@ body {			/* Change width and height to own preferences */
 /* Basic style tweaks */
 section {padding: 5px;}
 
-button {float: right;}
+#submitButton {float: right;}
 
 img {margin-top: 10px; float: right;}
 
@@ -16,4 +16,4 @@ textarea {width:400px; height:100px; margin-left:35px; margin-right:35px;}
 
 .score {text-align: center;}
 
-#newReview, #reviews {display: none;}
+#newReview, #noReview, #createStore {display: none;}

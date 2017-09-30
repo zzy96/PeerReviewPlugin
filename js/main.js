@@ -1,10 +1,73 @@
-window.addEventListener('load', search);
+window.addEventListener("load", start);
 
 var storeName;
+var storeId;
 
-function search(){
+function start(){
+	document.getElementById("submitButton").addEventListener("click",checkInput);
+	document.getElementById("createStore").addEventListener("click",createStore(storeId));
+	// function in blockchainConnector;
 	console.log("searching...");
-	getCurrentTabUrl(httpGetAsync);
+	getCurrentTabUrl(display);
+}
+
+function checkInput(){
+	submitReview();
+	// function in blockchainConnector;
+}
+
+function display(){
+	console.log(storeId);
+
+	// check if store exists
+	if (storeExist(storeId)){
+		document.getElementById("storeName").innerHTML = storeName;
+		document.getElementById("newReview").style.display = "block";
+
+		// get blockchain data
+		readReviews(storeId, function(reviews){
+			if (reviews.length == 0){
+				document.getElementById("noReview").style.display = "block";
+			} else{
+				console.log("display reviews");
+				var tbody = document.getElementById("reviews");
+				var td;
+				var node;
+				for (var i=0; i<reviews.length; i++){
+					var tr = document.createElement("tr");
+					// indexing
+					td = document.createElement("td");
+					node = document.createTextNode(i+1);
+					td.appendChild(node);
+					tr.appendChild(td);
+					// reviewer
+					td = document.createElement("td");
+					node = document.createTextNode(reviews[i].reviewer);
+					td.appendChild(node);
+					tr.appendChild(td);
+					// content
+					td = document.createElement("td");
+					node = document.createTextNode(reviews[i].content);
+					td.appendChild(node);
+					tr.appendChild(td);
+					// score
+					td = document.createElement("td");
+					node = document.createTextNode(reviews[i].score);
+					td.appendChild(node);
+					tr.appendChild(td);
+					tbody.appendChild(tr);
+				}
+			}
+		});
+		
+		readOverallScore(storeId, function(score){
+			document.getElementById("storeScore").innerHTML = score;
+		});
+		
+	} else {
+		document.getElementById("createStore").style.display = "block";
+	}
+
 }
 
 function getCurrentTabUrl(callback) {
@@ -33,46 +96,20 @@ function getCurrentTabUrl(callback) {
     // "url" properties.
     console.assert(typeof url == 'string', 'tab.url should be a string');
 
-    callback(createPlaceSearchUrl(url), display);
+    if (getStoreFromUrl(url)){
+    	callback();
+    }
+    
   });
 }
 
-// https://maps.googleapis.com/maps/api/geocode/json?address=Ichiban+Boshi+(Jurong+Point)&key=AIzaSyAsgssJTUNy5pje5juQSZmnfOhhAgcLd5s
-function httpGetAsync(theUrl, callback) {
-	if (theUrl){
-		var xmlHttp = new XMLHttpRequest();
-    	xmlHttp.onreadystatechange = function() { 
-        	if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            	callback(xmlHttp.responseText);
-    	}
-    	xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    	xmlHttp.send(null);
-	} else {
-		clearDisplay();
-	}
-}
-
-function createPlaceSearchUrl(url){
+function getStoreFromUrl(url){
 	if (url.match("https://www.google.com.sg/maps/place/")){
 		results = url.split("/");
 		storeName = results[5].split('+').join(' ');
-		return "https://maps.googleapis.com/maps/api/geocode/json?address=" + results[5] + "&key=AIzaSyAsgssJTUNy5pje5juQSZmnfOhhAgcLd5s";
+		storeId = results[5].split('+').join('') + results[6];
+		return true;
 	} else {
-		return null;
+		return false;
 	}
-}
-
-function display(res){
-	placeId = JSON.parse(res).results[0].place_id;
-	console.log(placeId);
-	document.getElementById("storeName").innerHTML = storeName;
-	// get blockchain data
-
-	document.getElementById("noReview").style.display = "none";
-	document.getElementById("reviews").style.display = "block";
-	document.getElementById("newReview").style.display = "block";
-}
-
-function clearDisplay(){
-	document.getElementById("storeName").innerHTML = "No store to display now!";
 }
