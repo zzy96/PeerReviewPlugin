@@ -16,4 +16,4 @@ textarea {width:400px; height:100px; margin-left:35px; margin-right:35px;}
 
 .score {text-align: center;}
 
-#newReview, #noReview, #createStore {display: none;}
+#newReview, #noReview, #createStore, #switchAccount {display: none;}

@@ -98,12 +98,11 @@ function getCurrentTabUrl(callback) {
 
 	if (web3IsConnected()){
 		document.getElementById("storeName").innerHTML = "No store to display now!";
-		return;
+		document.getElementById("switchAccount").style.display = "block";
+		if (getStoreFromUrl(url)){
+	    	callback();
+	    }
 	}
-
-    if (getStoreFromUrl(url)){
-    	callback();
-    }
     
   });
 }

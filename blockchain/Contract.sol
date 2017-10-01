@@ -25,9 +25,7 @@ contract StoreRegistry{
   mapping (bytes32 => address) public registry;
 
   event LogStoreCreated(address indexed store_address);
-  event LogStoreChanged(address indexed old_store_address, address indexed new_store_address);
-  event LogOwnershipTransferred(address indexed old_owner, address indexed new_owner);
-
+  
   function addStore(string _placeID) public {
     require(registry[sha256(_placeID)] == 0x0);
     Store newStore = new Store(_placeID);
