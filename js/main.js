@@ -96,6 +96,11 @@ function getCurrentTabUrl(callback) {
     // "url" properties.
     console.assert(typeof url == 'string', 'tab.url should be a string');
 
+	if (web3IsConnected()){
+		document.getElementById("storeName").innerHTML = "No store to display now!";
+		return;
+	}
+
     if (getStoreFromUrl(url)){
     	callback();
     }

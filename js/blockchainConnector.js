@@ -1,10 +1,23 @@
-var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-var eth_account = web3.eth.accounts[0];
+var web3;
+var eth_account;
+var isConnected;
+
+try {
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+	eth_account = web3.eth.accounts[0];
+	isConnected = true;
+}
+catch(err) {
+    console.log(err.message);
+    isConnected = false;
+}
+
+function web3IsConnected(){
+	return isConnected;
+}
 
 function createStore(storeId){
-	console.log("createStore");
-	console.log(storeId);
-	store_registry_contract.addStore(storeId, {from: eth_account, data: store_code, gas:1000000});
+	console.log(store_registry_contract.addStore(storeId, {from: eth_account, data: store_code, gas:1000000}));
 }
 
 function submitReview(storeId, content, score){
