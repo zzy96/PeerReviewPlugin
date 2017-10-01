@@ -1,7 +1,5 @@
 ### PeerReviewPlugin
 
-![logo](https://github.com/zzy96/PeerReviewPlugin/blob/master/favicon.png =100x100)
-
 A Chrome Peer Review Plugin connecting to Ethereum Blockchain.
 
 # Setup
