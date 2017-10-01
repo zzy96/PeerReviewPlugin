@@ -1,0 +1,6 @@
+node_modules
+deploy.js
+blockchain/testContract_sol_greeter.abi
+blockchain/testContract_sol_greeter.bin
+blockchain/testContract.sol
+blockchain/storeRegistryAddress.dat

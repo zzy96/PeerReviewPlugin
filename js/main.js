@@ -5,19 +5,20 @@ var storeId;
 
 function start(){
 	document.getElementById("submitButton").addEventListener("click",checkInput);
-	document.getElementById("createStore").addEventListener("click",createStore(storeId));
 	// function in blockchainConnector;
 	console.log("searching...");
 	getCurrentTabUrl(display);
 }
 
 function checkInput(){
-	submitReview();
+	var content = document.getElementById("content").value;
+	var score = document.getElementById("score").value;
+	submitReview(storeId, content, score);
 	// function in blockchainConnector;
 }
 
 function display(){
-	console.log(storeId);
+	console.log("In display function: " + storeId);
 
 	// check if store exists
 	if (storeExist(storeId)){
@@ -60,12 +61,11 @@ function display(){
 			}
 		});
 		
-		readOverallScore(storeId, function(score){
-			document.getElementById("storeScore").innerHTML = score;
-		});
-		
+		document.getElementById("storeScore").innerHTML = readOverallScore(storeId);
+
 	} else {
 		document.getElementById("createStore").style.display = "block";
+		document.getElementById("createStore").addEventListener("click",createStore(storeId));
 	}
 
 }
