@@ -65,9 +65,13 @@ function display(){
 
 	} else {
 		document.getElementById("createStore").style.display = "block";
-		document.getElementById("createStore").addEventListener("click",createStore(storeId));
+		document.getElementById("createStore").addEventListener("click",createStoreWrapper);
 	}
 
+}
+
+function createStoreWrapper(){
+	createStore(storeId);
 }
 
 function getCurrentTabUrl(callback) {
